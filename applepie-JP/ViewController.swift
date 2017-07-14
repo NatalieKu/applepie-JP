@@ -26,19 +26,21 @@ class ViewController: UIViewController {
     @IBOutlet var letterButtons: [UIButton]!
     
  var currentGame : Game!
-    var listOfWords = ["ともなう", "なさけない"]
-    let incorrectMovesAllowed = 7
+    var listOfWords = ["ともなう", "なさけない", "うちあける", "うつわ","みたらい"]
+    var incorrectMovesAllowed = 7
     
     var totalWins = 0  {
       didSet {
-            newRound()
-}
-   }
+        newRound()
+    }
+        
+    }
     var totalLosses = 0  {
         didSet {
             
      newRound()
             
+                
 }
     }
         
@@ -70,7 +72,7 @@ class ViewController: UIViewController {
             speechUtterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
             let synth = AVSpeechSynthesizer()
             synth.speak(speechUtterance)
-            newRound()
+            
         }
         else if currentGame.word == currentGame.formattedWord {
             
@@ -79,7 +81,7 @@ class ViewController: UIViewController {
             speechUtterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
             let synth = AVSpeechSynthesizer()
             synth.speak(speechUtterance)
-            newRound()
+            
         }
         else {
             updateUI ()
@@ -113,10 +115,22 @@ class ViewController: UIViewController {
         }
         else {
             enableLetterButtons(_enable: false)
-            
-        }
+            if  listOfWords.isEmpty == true {
+                
+                listOfWords = ["ともなう", "なさけない", "うちあける", "うつわ","みたらい"]
+                listOfWords.insert("ともなう", at:0)
+                initialize()
+                
+                
+            }
+                
+            }
         
     }
+    
+        
+        
+    
     
    
     
@@ -130,7 +144,6 @@ class ViewController: UIViewController {
         correctWordLabel.text = wordWithSpacing
         scoreLabel.text = "正解: \(totalWins),誤答: \(totalLosses)"
         treeImageView.image = UIImage(named: "Tree \(currentGame.incorrectMovesRemaining)")
-        
         
     }
     
@@ -149,11 +162,12 @@ class ViewController: UIViewController {
         for button in letterButtons  {
             button.isEnabled = true
             
-            
-        }
     }
-    
-    
+    }
+    func initialize ()  {
+        totalWins = 0
+        totalLosses = 0
+    }
     
     
     override func didReceiveMemoryWarning() {
