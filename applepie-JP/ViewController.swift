@@ -167,6 +167,7 @@ class ViewController: UIViewController {
     func initialize ()  {
         totalWins = 0
         totalLosses = 0
+        numberToCount = 0
     }
     
     
